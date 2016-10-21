@@ -1,0 +1,40 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../elfy-api/elfy-api.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<!--
+`demo-models`
+
+
+@demo demo/index.html
+-->
+
+<dom-module id="demo-models">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <paper-input label="CareRecipientId">{{careRecipient.id}}</paper-input>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'demo-models',
+
+      properties: {
+        careRecipient: {
+          type: Object,
+          value() { return {} },
+          notify: true
+        },
+      },
+
+      attached() {
+        this.careRecipient = App.CareRecipient.createRecord()
+      }
+
+    });
+  </script>
+</dom-module>
