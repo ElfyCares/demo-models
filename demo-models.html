@@ -28,10 +28,15 @@
         border: 1px solid #eee;
         padding: 12px;
       }
+
+      paper-input {
+        padding: 12px;
+      }
     </style>
     <div class="login">
       <paper-input label="username" username="{{username}}"></paper-input>
       <paper-input label="password" password="{{password}}"></paper-input>
+      <paper-button on-tap="login">Login</paper-button>
     </div>
     <number-input label="CareRecipientId" value="{{careRecipient.id}}"></number-input>
   </template>
