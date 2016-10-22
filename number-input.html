@@ -28,11 +28,13 @@
         },
         strVal: {
           type: String,
-          value: ''
+          value: '',
+          notify: true
         },
         value: {
           type: Number,
-          computed: '_toNumber(strVal)'
+          computed: '_toNumber(strVal)',
+          notify: true
         }
       },
 
