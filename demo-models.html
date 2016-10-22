@@ -44,7 +44,7 @@
         <paper-input label="password" value="{{password}}"></paper-input>
         <paper-button on-tap="login">Login</paper-button>
       </div>
-      <number-input label="CareRecipientId" value="{{careRecipient.id}}"></number-input>
+      <number-input label="CareRecipientId" value="{{careRecipientId}}"></number-input>
     </div>
 
     <slot></slot>
@@ -66,18 +66,14 @@
           value: ''
         },
 
-        careRecipient: {
-          type: Object,
-          value() { return {} },
-          notify: true
+        careRecipientId: {
+          type: Number,
         },
       },
 
-      attached() {
-        this.careRecipient = App.CareRecipient.createRecord()
-
-        this._setModels()
-      },
+      observers: [
+        '_setModels(careRecipientId)'
+      ],
 
       login() {
         App.Token.login(this.username, this.password)
@@ -86,7 +82,7 @@
       _setModels() {
         var crNodes = Polymer.dom(this).querySelectorAll('.care-recipient')
         Array.from(crNodes).forEach((e) => {
-          e.careRecipient = this.careRecipient
+          e[e.recordName].careRecipientId = this.careRecipientId
         })
       }
     });
