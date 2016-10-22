@@ -16,6 +16,11 @@
         padding: 24px;
       }
 
+      .demo {
+        padding: 12px;
+        border: 1px solid #eee;
+      }
+
       .login {
         display: -ms-flexbox;
         display: -webkit-flex;
@@ -33,12 +38,16 @@
         padding: 12px;
       }
     </style>
-    <div class="login">
-      <paper-input label="username" value="{{username}}"></paper-input>
-      <paper-input label="password" value="{{password}}"></paper-input>
-      <paper-button on-tap="login">Login</paper-button>
+    <div class="demo">
+      <div class="login">
+        <paper-input label="username" value="{{username}}"></paper-input>
+        <paper-input label="password" value="{{password}}"></paper-input>
+        <paper-button on-tap="login">Login</paper-button>
+      </div>
+      <number-input label="CareRecipientId" value="{{careRecipient.id}}"></number-input>
     </div>
-    <number-input label="CareRecipientId" value="{{careRecipient.id}}"></number-input>
+
+    <slot></slot>
   </template>
   <script>
     Polymer({
