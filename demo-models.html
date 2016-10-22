@@ -1,6 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../elfy-api/elfy-api.html">
-<link rel="import" href="../paper-input/paper-input.html">
+<link rel="import" href="number-input.html">
 <!--
 `demo-models`
 
@@ -15,9 +15,8 @@
         display: block;
       }
     </style>
-    <paper-input label="CareRecipientId" value="{{careRecipient.id}}"></paper-input>
+    <number-input label="CareRecipientId" value="{{careRecipient.id}}"></number-input>
   </template>
-
   <script>
     Polymer({
 
@@ -33,8 +32,19 @@
 
       attached() {
         this.careRecipient = App.CareRecipient.createRecord()
-      }
+        this._setModels()
+      },
 
+      toNumber(str) {
+        return parseInt(str)
+      },
+
+      _setModels() {
+        var crNodes = Polymer.dom(this).querySelectorAll('.care-recipient')
+        Array.from(crNodes).forEach((e) => {
+          e.careRecipient = this.careRecipient
+        })
+      }
     });
   </script>
 </dom-module>

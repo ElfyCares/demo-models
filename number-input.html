@@ -1,0 +1,45 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-input/paper-input.html">
+<!--
+`demo-models`
+
+
+@demo demo/index.html
+-->
+
+<dom-module id="number-input">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <paper-input label="[[label]]" value="{{strVal}}"></paper-input>
+  </template>
+  <script>
+    Polymer({
+
+      is: 'number-input',
+
+      properties: {
+        label: {
+          type: String,
+          value: ''
+        },
+        strVal: {
+          type: String,
+          value: ''
+        },
+        value: {
+          type: Number,
+          computed: '_toNumber(strVal)'
+        }
+      },
+
+      _toNumber(str) {
+        if (!str) return
+        return parseInt(str)
+      }
+    });
+  </script>
+</dom-module>
