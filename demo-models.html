@@ -13,8 +13,26 @@
     <style>
       :host {
         display: block;
+        padding: 24px;
+      }
+
+      .login {
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+
+        border: 1px solid #eee;
+        padding: 12px;
       }
     </style>
+    <div class="login">
+      <paper-input label="username" username="{{username}}"></paper-input>
+      <paper-input label="password" password="{{password}}"></paper-input>
+    </div>
     <number-input label="CareRecipientId" value="{{careRecipient.id}}"></number-input>
   </template>
   <script>
@@ -32,11 +50,12 @@
 
       attached() {
         this.careRecipient = App.CareRecipient.createRecord()
+
         this._setModels()
       },
 
-      toNumber(str) {
-        return parseInt(str)
+      login() {
+        App.Token.login(this.username, this.password)
       },
 
       _setModels() {
