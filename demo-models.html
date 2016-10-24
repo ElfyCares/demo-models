@@ -46,8 +46,9 @@
       </div>
       <number-input label="CareRecipientId" value="{{careRecipientId::change}}"></number-input>
     </div>
-
-    <slot></slot>
+    <template is="dom-if" if="[[loggedIn]]">
+      <slot></slot>
+    </template>
   </template>
   <script>
     Polymer({
@@ -55,6 +56,13 @@
       is: 'demo-models',
 
       properties: {
+
+        loggedIn: {
+          type: Boolean,
+          value: false,
+          notify: true
+        },
+
 
         username: {
           type: String,
@@ -76,7 +84,9 @@
       ],
 
       login() {
-        App.Token.login(this.username, this.password)
+        App.Token.login(this.username, this.password).then((e) => {
+          this.loggedIn =  true
+        })
       },
 
       _setModels() {
