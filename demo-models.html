@@ -44,7 +44,7 @@
         <paper-input label="password" value="{{password}}"></paper-input>
         <paper-button on-tap="login">Login</paper-button>
       </div>
-      <number-input label="CareRecipientId" value="{{careRecipientId}}"></number-input>
+      <number-input label="CareRecipientId" value="{{careRecipientId::change}}"></number-input>
     </div>
 
     <slot></slot>
@@ -80,10 +80,18 @@
       },
 
       _setModels() {
+        // Care Recipients
         var crNodes = Polymer.dom(this).querySelectorAll('.care-recipient')
         Array.from(crNodes).forEach((e) => {
-          e[e.recordName].careRecipientId = this.careRecipientId
+          if (e[e.recordName]) {
+            e[e.recordName].careRecipientId = this.careRecipientId
+          } else {
+            var cr = App.CareRecipient.createRecord()
+            cr.id = this.careRecipientId
+            e.careRecipient = cr
+          }
         })
+        //
       }
     });
   </script>
