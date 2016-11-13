@@ -45,6 +45,7 @@
         <paper-button on-tap="login">Login</paper-button>
       </div>
       <number-input label="CareRecipientId" value="{{careRecipientId::change}}"></number-input>
+      <number-input label="VisitId" value="{{visitId::change}}"></number-input>
     </div>
     <template is="dom-if" if="[[loggedIn]]">
       <slot></slot>
@@ -77,6 +78,10 @@
         careRecipientId: {
           type: Number,
         },
+
+        visitId: {
+          type: Number,
+        },
       },
 
       observers: [
@@ -101,7 +106,17 @@
             e.careRecipient = cr
           }
         })
-        //
+        // Visits
+        var crNodes = Polymer.dom(this).querySelectorAll('.visit')
+        Array.from(crNodes).forEach((e) => {
+          if (e[e.recordName]) {
+            e[e.recordName].visitId = this.visitId
+          } else {
+            var v = App.Visit.createRecord()
+            v.id = this.visitId
+            e.visit = visit
+          }
+        })
       }
     });
   </script>
