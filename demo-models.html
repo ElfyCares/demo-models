@@ -64,6 +64,10 @@
           notify: true
         },
 
+        me: {
+          type: Object,
+          value() { return {} },
+        },
 
         username: {
           type: String,
@@ -87,16 +91,38 @@
       },
 
       observers: [
-        '_setModels(careRecipientId,visitId)'
+        '_setModels(me,careRecipientId,visitId)'
       ],
 
       login() {
         App.Token.login(this.username, this.password).then((e) => {
           this.loggedIn =  true
+          return true
+        }).then((b) => {
+          return App.User.me().then((me) => {
+            this.me = me
+          })
         })
       },
 
       _setModels() {
+        // me
+        var crNodes = Polymer.dom(this).querySelectorAll('.me')
+        Array.from(crNodes).forEach((e) => {
+          if (e[e.recordName]) {
+            e[e.recordName].userId = this.userId
+          } else {
+            var v = App.User.createRecord()
+            v.id = this.me.id
+
+            if (e.me) {
+              e.me = v
+            } else {
+              e.meId = v.id
+            }
+          }
+        })
+
         // Care Recipients
         if (this.careRecipientId !== 0) {
           var crNodes = Polymer.dom(this).querySelectorAll('.care-recipient')
@@ -133,6 +159,8 @@
             }
           })
         }
+
+
       }
     });
   </script>
