@@ -77,15 +77,17 @@
 
         careRecipientId: {
           type: Number,
+          value: 0
         },
 
         visitId: {
           type: Number,
+          value: 0
         },
       },
 
       observers: [
-        '_setModels(careRecipientId)'
+        '_setModels(careRecipientId,visitId)'
       ],
 
       login() {
@@ -96,27 +98,41 @@
 
       _setModels() {
         // Care Recipients
-        var crNodes = Polymer.dom(this).querySelectorAll('.care-recipient')
-        Array.from(crNodes).forEach((e) => {
-          if (e[e.recordName]) {
-            e[e.recordName].careRecipientId = this.careRecipientId
-          } else {
-            var cr = App.CareRecipient.createRecord()
-            cr.id = this.careRecipientId
-            e.careRecipient = cr
-          }
-        })
+        if (this.careRecipientId !== 0) {
+          var crNodes = Polymer.dom(this).querySelectorAll('.care-recipient')
+          Array.from(crNodes).forEach((e) => {
+            if (e[e.recordName]) {
+              e[e.recordName].careRecipientId = this.careRecipientId
+            } else {
+              var cr = App.CareRecipient.createRecord()
+              cr.id = this.careRecipientId
+
+              if (e.careRecipient) {
+                e.careRecipient = cr
+              } else {
+                e.careRecipientId = cr.id
+              }
+            }
+          })
+        }
         // Visits
-        var crNodes = Polymer.dom(this).querySelectorAll('.visit')
-        Array.from(crNodes).forEach((e) => {
-          if (e[e.recordName]) {
-            e[e.recordName].visitId = this.visitId
-          } else {
-            var v = App.Visit.createRecord()
-            v.id = this.visitId
-            e.visit = visit
-          }
-        })
+        if (this.visitId !== 0) {
+          var crNodes = Polymer.dom(this).querySelectorAll('.visit')
+          Array.from(crNodes).forEach((e) => {
+            if (e[e.recordName]) {
+              e[e.recordName].visitId = this.visitId
+            } else {
+              var v = App.Visit.createRecord()
+              v.id = this.visitId
+
+              if (e.visit) {
+                e.visit = v
+              } else {
+                e.visitId = v.id
+              }
+            }
+          })
+        }
       }
     });
   </script>
