@@ -111,15 +111,15 @@
         Array.from(crNodes).forEach((e) => {
           if (e[e.recordName]) {
             e[e.recordName].userId = this.userId
-          } else {
-            var v = App.User.createRecord()
-            v.id = this.me.id
+          }
 
-            if (e.me) {
-              e.me = v
-            } else {
-              e.meId = v.id
-            }
+          var v = App.User.createRecord()
+          v.id = this.me.id
+
+          if (e.me) {
+            e.me = v
+          } else {
+            e.meId = v.id
           }
         })
 
@@ -127,9 +127,9 @@
         if (this.careRecipientId !== 0) {
           var crNodes = Polymer.dom(this).querySelectorAll('.care-recipient')
           Array.from(crNodes).forEach((e) => {
-            if (e[e.recordName]) {
-              e[e.recordName].careRecipientId = this.careRecipientId
-            } else {
+              if (e[e.recordName]) {
+                e[e.recordName].careRecipientId = this.careRecipientId
+              }
               var cr = App.CareRecipient.createRecord()
               cr.id = this.careRecipientId
 
@@ -138,16 +138,15 @@
               } else {
                 e.careRecipientId = cr.id
               }
-            }
           })
         }
         // Visits
         if (this.visitId !== 0) {
           var crNodes = Polymer.dom(this).querySelectorAll('.visit')
           Array.from(crNodes).forEach((e) => {
-            if (e[e.recordName]) {
-              e[e.recordName].visitId = this.visitId
-            } else {
+              if (e[e.recordName]) {
+                e[e.recordName].visitId = this.visitId
+              }
               var v = App.Visit.createRecord()
               v.id = this.visitId
 
@@ -156,7 +155,6 @@
               } else {
                 e.visitId = v.id
               }
-            }
           })
         }
 
