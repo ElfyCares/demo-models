@@ -88,6 +88,11 @@
           type: Number,
           value: 0
         },
+
+        userId: {
+          type: Number,
+          value: 0
+        },
       },
 
       observers: [
@@ -154,6 +159,24 @@
                 e.visit = v
               } else {
                 e.visitId = v.id
+              }
+          })
+        }
+
+        // Users
+        if (this.userId !== 0) {
+          var crNodes = Polymer.dom(this).querySelectorAll('.user')
+          Array.from(crNodes).forEach((e) => {
+              if (e[e.recordName]) {
+                e[e.recordName].userId = this.userId
+              }
+              var u = App.User.createRecord()
+              u.id = this.userId
+
+              if (e.visit) {
+                e.user = u
+              } else {
+                e.userId = u.id
               }
           })
         }
